@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="js/vue.js"></script>
-    <script defer src="js/main.js"></script>
+    <script defer src="./src/vue.js"></script>
+    <script defer src="./src/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
     <link rel="stylesheet" href="css/main.css">
     <title>Product App</title>
 </head>
 <body>
 
-<!-- зак -->
+<!-- контейнер приложения Vue.js -->
 <div id="app">
     <div class="product">
         <div class="product-image">
@@ -25,7 +26,17 @@
             <p v-if="inventory > 10">In stock</p>
             <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
             <p v-else>Out of stock</p>
+            <ul>
+                <li v-for="detail in details">{{ detail }}</li>
+            </ul>
+            <div v-for="variant in variants" :key="variant.variantId">
+                <p>{{ variant.variantColor }}</p>
+            </div>
+            <ul>
+                <li v-for="size in sizes">{{size}}</li>
+            </ul>
             <a :href="link">More products like this</a>
+
         </div>
     </div>
 </div>
