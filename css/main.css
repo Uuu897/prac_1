@@ -1,11 +1,11 @@
 body {
     font-family: tahoma;
-    color:#282828;
+    color:#280828;
     margin: 0px;
 }
 
 .nav-bar {
-    background: linear-gradient(-90deg, #84CF6A, #16C0B0);
+    background: linear-gradient(-90deg, #1E95EA, #16C0B0);
     height: 60px;
     margin-bottom: 15px;
 }
@@ -34,8 +34,8 @@ img {
 }
 
 .color-box {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 30px;
     margin-top: 5px;
 }
 
