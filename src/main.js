@@ -22,16 +22,16 @@ Vue.component('product-tabs', {
                @click="selectedTab = tab"
          >{{ tab }}</span>
        </ul>
-       <div v-show="selectedTab === 'Reviews'">
-         <p v-if="!reviews.length">There are no reviews yet.</p>
-         <ul>
-           <li v-for="review in reviews">
-           <p>{{ review.name }}</p>
-           <p>Rating: {{ review.rating }}</p>
-           <p>Would you recommend this product: {{ review.question }}</p>
-           <p>{{ review.review }}</p>
-           </li>
-         </ul>
+       <div v-show="selectedTab === 'Reviews'" >
+         <p v-if="!filteredReviews.length">There are no reviews yet.</p>
+            <ul>
+            <li v-for="review in filteredReviews" :key="review.id">
+                <p>{{ review.name }}</p>
+                <p>Rating: {{ review.rating }}</p>
+                <p>Would you recommend this product: {{ review.question }}</p>
+                <p>{{ review.review }}</p>
+            </li>
+            </ul>
        </div>
        <div v-show="selectedTab === 'Make a Review'">
          <product-review></product-review>  
@@ -54,7 +54,15 @@ Vue.component('product-tabs', {
             tabs: ['Reviews', 'Make a Review', 'Shipping', 'Details' ],
             selectedTab: 'Reviews'  // устанавливается с помощью @click
         }
-    }
+    },
+    computed: {
+        filteredReviews() {
+            return this.reviews
+                .slice()
+                .sort((a, b) => b.rating - a.rating)
+                .slice(0, 5);
+        },
+    },
 })
 
 
@@ -139,8 +147,6 @@ Vue.component('product-review', {
     }
 
 })
-
-
 Vue.component('product-details',{
     props: {
         details: {
@@ -163,7 +169,7 @@ Vue.component('product', {
     },
     template: `
    <div class="product">
-	<div class="product-image">
+ <div class="product-image">
             <img :src="image" :alt="altText"/>
         </div>
         <div class="product-info">
@@ -253,7 +259,6 @@ Vue.component('product', {
         inStock() {
             return this.variants[this.selectedVariant].variantQuantity
         },
-
         sale(){
             return this.brand + '  ' + this.product + '  ' + this.variants[this.selectedVariant].variantOnSale;
         },
@@ -285,11 +290,3 @@ let app = new Vue({
 
 
 })
-
-
-
-
-
-
-
-
